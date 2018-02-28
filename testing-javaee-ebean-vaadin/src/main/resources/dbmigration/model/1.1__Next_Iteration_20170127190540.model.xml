@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<migration xmlns="http://ebean-orm.github.io/xml/ns/dbmigration">
+    <changeSet type="apply">
+        <createTable name="ciudad" pkName="pk_ciudad">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="nombre" type="varchar"/>
+        </createTable>
+        <createTable name="direccion" pkName="pk_direccion">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="calle" type="varchar"/>
+            <column name="nro" type="varchar"/>
+            <column name="persona_id" type="bigint" notnull="true" references="persona.id" foreignKeyName="fk_direccion_persona_id" foreignKeyIndex="ix_direccion_persona_id"/>
+            <column name="ciudad_id" type="bigint" notnull="true" references="ciudad.id" foreignKeyName="fk_direccion_ciudad_id" foreignKeyIndex="ix_direccion_ciudad_id"/>
+        </createTable>
+        <createTable name="persona" pkName="pk_persona">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="nombre" type="varchar"/>
+            <column name="apellido" type="varchar"/>
+        </createTable>
+    </changeSet>
+</migration>

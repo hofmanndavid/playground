@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<migration xmlns="http://ebean-orm.github.io/xml/ns/dbmigration">
+    <changeSet type="apply">
+        <createTable name="usuario" pkName="pk_usuario">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="full_name" type="varchar"/>
+            <column name="username" type="varchar" notnull="true" unique="uq_usuario_username"/>
+            <column name="email" type="varchar"/>
+            <column name="password" type="varchar" notnull="true"/>
+            <column name="role_admin" type="boolean"/>
+            <column name="role_impresor" type="boolean"/>
+            <column name="role_consulta" type="boolean"/>
+        </createTable>
+    </changeSet>
+</migration>

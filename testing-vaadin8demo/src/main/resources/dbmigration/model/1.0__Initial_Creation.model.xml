@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<migration xmlns="http://ebean-orm.github.io/xml/ns/dbmigration">
+    <changeSet type="apply">
+        <createTable name="categoria" pkName="pk_categoria">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="codigo" type="varchar" notnull="true" unique="uq_categoria_codigo"/>
+            <column name="descripcion" type="varchar"/>
+        </createTable>
+        <createTable name="cliente" pkName="pk_cliente">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="categoria_id" type="bigint" references="categoria.id" foreignKeyName="fk_cliente_categoria_id" foreignKeyIndex="ix_cliente_categoria_id"/>
+            <column name="fecha_nacimiento" type="date"/>
+            <column name="nombre" type="varchar"/>
+            <column name="apellido" type="varchar"/>
+            <column name="ruc" type="varchar"/>
+        </createTable>
+        <createTable name="usuario" pkName="pk_usuario">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="username" type="varchar" notnull="true" unique="uq_usuario_username"/>
+            <column name="email" type="varchar"/>
+            <column name="password" type="varchar" notnull="true"/>
+            <column name="full_name" type="varchar"/>
+        </createTable>
+    </changeSet>
+</migration>
