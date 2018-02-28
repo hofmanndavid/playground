@@ -7,7 +7,7 @@
 	<artifactId>vtech-demo</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>vtech-demo</name>
+	<name>testing-javaee-ebean-vaadin</name>
 
 	<properties>
 		<vaadin.version>8.0.0.beta1</vaadin.version>
@@ -108,7 +108,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>vtech-demo</finalName>
+		<finalName>testing-javaee-ebean-vaadin</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
