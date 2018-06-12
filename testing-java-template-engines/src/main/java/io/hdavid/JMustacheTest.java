@@ -10,7 +10,8 @@ public class JMustacheTest  {
     public static void main( String[] args ) {
 
 //        first();
-        second();
+//        second();
+        third();
     }
 
     static void first() {
@@ -22,16 +23,48 @@ public class JMustacheTest  {
     }
 
 
+    static class ComplexDTO {
+        List persons = new ArrayList() {{
+            add(new Person("Elvis", 75));
+            add(new Person("Madonna", 52));
+        }};
+        String message = "lekisima";
+    }
+    static void third() {
+
+        ComplexDTO complexDTO = new ComplexDTO();
+
+        String tmpl =
+                "{{#persons}} \n" +
+                        "{{name}}: {{age}} - {{date}} \n " +
+                        "{{/persons}}\n"+
+                        "Surprese here:! {{message}}";
+        String rendered = Mustache.compiler().compile(tmpl).execute(complexDTO);
+
+//        String tmpl =
+//                "{{#cdto.persons}} \n" +
+//                        "{{name}}: {{age}} - {{date}} \n " +
+//                        "{{/cdto.persons}}\n"+
+//                        "Surprese here:! {{cdto.message}}";
+//        String rendered = Mustache.compiler().compile(tmpl).execute(new Object() {
+//            Object cdto = complexDTO;
+//        });
+
+        System.out.println(rendered);
+
+    }
     static void second() {
 
         List<Person> persons = new ArrayList<>();
         persons.add(new Person("Elvis", 75));
         persons.add(new Person("Madonna", 52));
 
+
+
         String tmpl =
                 "{{#plist}} " +
                         "{{name}}: {{age}} - {{date}} \n " +
-                "{{/plist}}\n";
+                        "{{/plist}}\n";
         String rendered = Mustache.compiler().compile(tmpl).execute(new Object() {
             Object plist = persons;
         });
