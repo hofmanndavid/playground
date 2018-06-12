@@ -1,0 +1,32 @@
+syntax = "proto3";
+package net.hdavid.testrpc.grpcdef;
+option java_multiple_files = true;
+
+
+enum Sentiment {
+    HAPPY = 0;
+    SLEEPY = 1;
+    ANGRY = 2;
+}
+// Points are represented as latitude-longitude pairs in the E7 representation
+// (degrees multiplied by 10**7 and rounded to the nearest integer).
+// Latitudes should be in the range +/- 90 degrees and longitude should be in
+// the range +/- 180 degrees (inclusive).
+message MessagePayload {
+    int32 latitude = 1;
+    int32 longitude = 2;
+    string user = 3;
+    repeated string hobbies = 4;
+    map<string, string> bagOfTricks = 5;
+    Sentiment sentiment = 6;
+}
+
+message DefResponse {
+    string data = 1;
+}
+
+service ServerMethods {
+    rpc GetInfo(MessagePayload) returns (DefResponse);
+//    rpc GetInfo(stream MessagePayload) returns (stream DefResponse);
+}
+
