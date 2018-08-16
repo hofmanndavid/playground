@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package io.hdavid.grpcserver.generated;
+
+option java_multiple_files = true;
+
+enum DocumentType {
+    CI = 0;
+    RUC = 1;
+}
+enum CurrencyType {
+    GS=0;
+    USD=1;
+}
+enum Bank {
+    BBVA=0;
+    ITAU=1;
+    REGIONAL=2;
+}
+enum TransferRequestState {
+    PROCESSED=0;
+    ERROR=1;
+}
+
+message TargetAccount {
+    int32 number = 1;
+    Bank bank = 2;
+}
+
+message UnixTime {
+    int64 dateUsecs = 1;
+}
+
+message DateOnly {
+    uint32 year = 1;
+    uint32 month = 2;
+    uint32 day = 3;
+}
+
+message ClientId {
+    DocumentType documentType = 1;
+    string documentNumber = 2;
+}
+message ClientInfo {
+    string fullName = 1;
+    string phoneNumber = 2;
+    string address = 3;
+}
+
+
+message TransferRequest {
+    int64 ref=1;
+    string concept=2;
+    int32 debitAccount =3;
+    double amount = 4;
+    CurrencyType currency = 5;
+    TargetAccount transferTarget=6;
+    UnixTime requestedOn = 7;
+}
+message TransferRequestResp {
+    int64 ref=1;
+    TransferRequestState state=2;
+    string authorizationCode=3;
+    string errorMessage=4;
+    UnixTime processedOn = 5;
+}
+
+
+service ApiSimple {
+    rpc GetClientInfo(ClientId) returns (ClientInfo);
+    rpc TransferMoney(TransferRequest) returns (TransferRequestResp);
+}
+
+message GpsPos {
+    int64 longitude = 1;
+    int64 latitude = 2;
+    int64 altitude = 3;
+    int64 pressure = 4;
+}
+
+message DistanceToTarget {
+    int64 distance = 1;
+    bool gotToTarget = 2;
+}
+
+service ApiBidi {
+    rpc reachHome(stream GpsPos) returns (stream DistanceToTarget);
+}
