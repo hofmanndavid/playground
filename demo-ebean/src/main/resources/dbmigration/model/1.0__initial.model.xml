@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<migration xmlns="http://ebean-orm.github.io/xml/ns/dbmigration">
+    <changeSet type="apply">
+        <createTable name="customer" pkName="pk_customer">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="full_name" type="varchar"/>
+            <column name="document_number" type="varchar"/>
+        </createTable>
+        <createTable name="interaction" pkName="pk_interaction">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="op_name" type="varchar(256)"/>
+            <column name="customer_name" type="varchar(256)"/>
+            <column name="customer_document_number" type="varchar(256)"/>
+            <column name="fecha" type="timestamp"/>
+            <column name="id_canal" type="varchar(256)"/>
+        </createTable>
+        <createTable name="message" pkName="pk_message">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="fecha" type="timestamp"/>
+            <column name="sent_by_client" type="boolean"/>
+            <column name="message" type="varchar(10000)"/>
+            <column name="aditional" type="varchar(10000)"/>
+            <column name="op_name" type="varchar(256)"/>
+            <column name="interaction_id" type="bigint" references="interaction.id" foreignKeyName="fk_message_interaction_id" foreignKeyIndex="ix_message_interaction_id"/>
+        </createTable>
+        <createTable name="user" pkName="pk_user">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="email" type="varchar" notnull="true" unique="uq_user_email"/>
+            <column name="password" type="varchar"/>
+            <column name="name" type="varchar"/>
+            <column name="roles" type="varchar"/>
+        </createTable>
+    </changeSet>
+</migration>
