@@ -1,1 +1,4 @@
-entity-packages: py.com.bbva.canales.demoebean.entity
+profile-location: true
+entity-packages: py.com.bbva
+transactional-packages: py.com.bbva
+querybean-packages: py.com.bbva

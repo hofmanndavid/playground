@@ -8,14 +8,11 @@
     </encoder>
   </appender>
 
-  <root level="WARN">
+  <root level="INFO">
     <appender-ref ref="STDOUT"/>
   </root>
 
   <logger name="io.ebean" level="TRACE"/>
-
-  <!-- docker containers -->
-  <logger name="io.ebean.docker" level="TRACE"/>
 
   <!-- ddl -->
   <logger name="io.ebean.DDL" level="TRACE"/>
@@ -23,7 +20,7 @@
   <!-- sql and transaction logging -->
   <logger name="io.ebean.SQL" level="TRACE"/>
   <logger name="io.ebean.TXN" level="TRACE"/>
-  <logger name="io.ebean.SUM" level="TRACE"/>
+  <logger name="io.ebean.SUM" level="INFO"/>
 
   <!-- l2 cache logging -->
   <logger name="io.ebean.cache.QUERY" level="TRACE"/>
@@ -31,7 +28,10 @@
   <logger name="io.ebean.cache.COLL" level="TRACE"/>
   <logger name="io.ebean.cache.NATKEY" level="TRACE"/>
 
-  <!-- elasticSearch query logging -->
-  <!--<logger name="io.ebean.ELA" level="TRACE"/>-->
+  <!--elasticSearch query logging -->
+  <logger name="io.ebean.ELA" level="TRACE"/>
 
+  <logger name="io.ebeaninternal.dbmigration.DdlGenerator" level="TRACE"/>
+
+  <logger name="io.ebeaninternal.server.autotune" level="TRACE"/>
 </configuration>

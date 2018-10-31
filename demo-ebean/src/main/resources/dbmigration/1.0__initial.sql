@@ -1,42 +1,45 @@
 -- apply changes
-create table customer (
+create table address (
   id                            bigint auto_increment not null,
-  full_name                     varchar(255),
-  document_number               varchar(255),
-  constraint pk_customer primary key (id)
+  address                       varchar(255),
+  city                          varchar(255),
+  constraint pk_address primary key (id)
 );
 
-create table interaction (
+create table contact (
   id                            bigint auto_increment not null,
-  op_name                       varchar(256),
-  customer_name                 varchar(256),
-  customer_document_number      varchar(256),
-  fecha                         timestamp,
-  id_canal                      varchar(256),
-  constraint pk_interaction primary key (id)
+  contact                       varchar(255),
+  type                          varchar(5),
+  customer_id                   bigint,
+  constraint ck_contact_type check ( type in ('PHONE','EMAIL')),
+  constraint pk_contact primary key (id)
+);
+
+create table customer (
+  id                            bigint auto_increment not null,
+  name                          varchar(255),
+  doc_number                    varchar(255),
+  status                        integer,
+  registered                    date,
+  billing_address_id            bigint,
+  constraint ck_customer_status check ( status in (0,1)),
+  constraint pk_customer primary key (id)
 );
 
 create table message (
   id                            bigint auto_increment not null,
+  message                       varchar(255),
   fecha                         timestamp,
-  sent_by_client                boolean,
-  message                       varchar(10000),
-  aditional                     varchar(10000),
-  op_name                       varchar(256),
-  interaction_id                bigint,
+  customer_id                   bigint,
   constraint pk_message primary key (id)
 );
 
-create table user (
-  id                            bigint auto_increment not null,
-  email                         varchar(255) not null,
-  password                      varchar(255),
-  name                          varchar(255),
-  roles                         varchar(255),
-  constraint uq_user_email unique (email),
-  constraint pk_user primary key (id)
-);
+create index ix_contact_customer_id on contact (customer_id);
+alter table contact add constraint fk_contact_customer_id foreign key (customer_id) references customer (id) on delete restrict on update restrict;
 
-create index ix_message_interaction_id on message (interaction_id);
-alter table message add constraint fk_message_interaction_id foreign key (interaction_id) references interaction (id) on delete restrict on update restrict;
+create index ix_customer_billing_address_id on customer (billing_address_id);
+alter table customer add constraint fk_customer_billing_address_id foreign key (billing_address_id) references address (id) on delete restrict on update restrict;
+
+create index ix_message_customer_id on message (customer_id);
+alter table message add constraint fk_message_customer_id foreign key (customer_id) references customer (id) on delete restrict on update restrict;
 

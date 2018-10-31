@@ -1,13 +1,11 @@
 package py.com.bbva.canales.demoebean.entity;
 
 import io.ebean.Model;
-import io.ebean.annotation.SoftDelete;
 import lombok.Getter;
-
+import lombok.ToString;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
 import java.io.Serializable;
 
 @MappedSuperclass
@@ -16,6 +14,7 @@ public abstract class AbstractEntity extends Model implements Serializable {
     @Id
     @GeneratedValue
     @Getter
+    @ToString.Include
     private Long id;
 
 //	@Version

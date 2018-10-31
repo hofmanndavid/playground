@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <migration xmlns="http://ebean-orm.github.io/xml/ns/dbmigration">
     <changeSet type="apply">
+        <createTable name="address" pkName="pk_address">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="address" type="varchar"/>
+            <column name="city" type="varchar"/>
+        </createTable>
+        <createTable name="contact" pkName="pk_contact">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="contact" type="varchar"/>
+            <column name="type" type="varchar(5)" checkConstraint="check ( type in ('PHONE','EMAIL'))" checkConstraintName="ck_contact_type"/>
+            <column name="customer_id" type="bigint" references="customer.id" foreignKeyName="fk_contact_customer_id" foreignKeyIndex="ix_contact_customer_id"/>
+        </createTable>
         <createTable name="customer" pkName="pk_customer">
             <column name="id" type="bigint" primaryKey="true"/>
-            <column name="full_name" type="varchar"/>
-            <column name="document_number" type="varchar"/>
-        </createTable>
-        <createTable name="interaction" pkName="pk_interaction">
-            <column name="id" type="bigint" primaryKey="true"/>
-            <column name="op_name" type="varchar(256)"/>
-            <column name="customer_name" type="varchar(256)"/>
-            <column name="customer_document_number" type="varchar(256)"/>
-            <column name="fecha" type="timestamp"/>
-            <column name="id_canal" type="varchar(256)"/>
+            <column name="name" type="varchar"/>
+            <column name="doc_number" type="varchar"/>
+            <column name="status" type="integer" checkConstraint="check ( status in (0,1))" checkConstraintName="ck_customer_status"/>
+            <column name="registered" type="date"/>
+            <column name="billing_address_id" type="bigint" references="address.id" foreignKeyName="fk_customer_billing_address_id" foreignKeyIndex="ix_customer_billing_address_id"/>
         </createTable>
         <createTable name="message" pkName="pk_message">
             <column name="id" type="bigint" primaryKey="true"/>
+            <column name="message" type="varchar"/>
             <column name="fecha" type="timestamp"/>
-            <column name="sent_by_client" type="boolean"/>
-            <column name="message" type="varchar(10000)"/>
-            <column name="aditional" type="varchar(10000)"/>
-            <column name="op_name" type="varchar(256)"/>
-            <column name="interaction_id" type="bigint" references="interaction.id" foreignKeyName="fk_message_interaction_id" foreignKeyIndex="ix_message_interaction_id"/>
-        </createTable>
-        <createTable name="user" pkName="pk_user">
-            <column name="id" type="bigint" primaryKey="true"/>
-            <column name="email" type="varchar" notnull="true" unique="uq_user_email"/>
-            <column name="password" type="varchar"/>
-            <column name="name" type="varchar"/>
-            <column name="roles" type="varchar"/>
+            <column name="customer_id" type="bigint" references="customer.id" foreignKeyName="fk_message_customer_id" foreignKeyIndex="ix_message_customer_id"/>
         </createTable>
     </changeSet>
 </migration>
