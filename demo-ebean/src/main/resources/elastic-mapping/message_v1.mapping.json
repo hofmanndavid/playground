@@ -1,0 +1,10 @@
+{
+  "mappings" : {
+    "message" : {
+      "properties" : {
+        "fecha": { "type": "date" },
+        "message": { "type": "text" }
+      }
+    }
+  }
+}

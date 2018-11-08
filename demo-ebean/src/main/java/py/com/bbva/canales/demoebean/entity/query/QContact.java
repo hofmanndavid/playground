@@ -1,56 +1,57 @@
 package py.com.bbva.canales.demoebean.entity.query;
 
 import io.ebean.EbeanServer;
+import io.ebean.typequery.PEnum;
 import io.ebean.typequery.PLong;
 import io.ebean.typequery.PString;
-import io.ebean.typequery.PUtilDate;
 import io.ebean.typequery.TQRootBean;
 import io.ebean.typequery.TypeQueryBean;
-import py.com.bbva.canales.demoebean.entity.Message;
+import py.com.bbva.canales.demoebean.entity.Contact;
+import py.com.bbva.canales.demoebean.entity.Contact.Type;
 import py.com.bbva.canales.demoebean.entity.query.assoc.QAssocCustomer;
 
 /**
- * Query bean for Message.
+ * Query bean for Contact.
  * 
  * THIS IS A GENERATED OBJECT, DO NOT MODIFY THIS CLASS.
  */
 @TypeQueryBean
-public class QMessage extends TQRootBean<Message,QMessage> {
+public class QContact extends TQRootBean<Contact,QContact> {
 
-  private static final QMessage _alias = new QMessage(true);
+  private static final QContact _alias = new QContact(true);
 
   /**
    * Return the shared 'Alias' instance used to provide properties to 
    * <code>select()</code> and <code>fetch()</code> 
    */
-  public static QMessage alias() {
+  public static QContact alias() {
     return _alias;
   }
 
-  public PLong<QMessage> id;
-  public PUtilDate<QMessage> fecha;
-  public PString<QMessage> message;
-  public QAssocCustomer<QMessage> customer;
+  public PLong<QContact> id;
+  public PString<QContact> contact;
+  public PEnum<QContact,Type> type;
+  public QAssocCustomer<QContact> customer;
 
 
   /**
    * Construct with a given EbeanServer.
    */
-  public QMessage(EbeanServer server) {
-    super(Message.class, server);
+  public QContact(EbeanServer server) {
+    super(Contact.class, server);
   }
 
   /**
    * Construct using the default EbeanServer.
    */
-  public QMessage() {
-    super(Message.class);
+  public QContact() {
+    super(Contact.class);
   }
 
   /**
    * Construct for Alias.
    */
-  private QMessage(boolean dummy) {
+  private QContact(boolean dummy) {
     super(dummy);
   }
 }

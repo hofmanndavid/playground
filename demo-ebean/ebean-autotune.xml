@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<autotune xmlns="http://ebean-orm.github.io/xml/ns/autotune">
+    <origin key="ZnhGk.B4k5Uj.D20v-f" beanType="py.com.bbva.canales.demoebean.entity.Customer"
+            detail="select (name,docNumber,status,registered)  fetch billingAddress (id,address,city)  fetch contacts (id,contact,type)  fetch messages (id,message,fecha) "
+            original="">
+        <callStack>py.com.bbva.canales.demoebean.AutoTune.todosLosQueEstanEnCiudad(AutoTune.java:47)
+            py.com.bbva.canales.demoebean.AutoTune.testExecutionPaths(AutoTune.java:35)
+            sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+            sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+            sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        </callStack>
+    </origin>
+    <origin key="ZnhGk.CxkOhF.CToB5T" beanType="py.com.bbva.canales.demoebean.entity.Customer"
+            detail="select (name) " original="">
+        <callStack>py.com.bbva.canales.demoebean.AutoTune.todosLosMigrados(AutoTune.java:54)
+            py.com.bbva.canales.demoebean.AutoTune.testExecutionPaths(AutoTune.java:39)
+            sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+            sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+            sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        </callStack>
+    </origin>
+</autotune>

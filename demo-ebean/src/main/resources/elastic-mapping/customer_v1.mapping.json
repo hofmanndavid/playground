@@ -1,0 +1,33 @@
+{
+  "mappings" : {
+    "customer" : {
+      "properties" : {
+        "name": { "type": "text" },
+        "docNumber": { "type": "text" },
+        "status": { "type": "keyword" },
+        "registered": { "type": "date" },
+        "billingAddress" : {
+          "properties" : {
+            "id": { "type": "long" },
+            "address": { "type": "text" },
+            "city": { "type": "text" }
+          }
+        },
+        "contacts" : {
+          "type" : "nested",
+          "properties" : {
+            "contact": { "type": "text" },
+            "type": { "type": "keyword" }
+          }
+        },
+        "messages" : {
+          "type" : "nested",
+          "properties" : {
+            "message": { "type": "text" },
+            "fecha": { "type": "date" }
+          }
+        }
+      }
+    }
+  }
+}

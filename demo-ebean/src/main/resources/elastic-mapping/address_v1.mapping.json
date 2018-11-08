@@ -1,0 +1,10 @@
+{
+  "mappings" : {
+    "address" : {
+      "properties" : {
+        "address": { "type": "text" },
+        "city": { "type": "text" }
+      }
+    }
+  }
+}

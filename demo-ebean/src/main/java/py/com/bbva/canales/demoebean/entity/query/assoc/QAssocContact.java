@@ -1,36 +1,37 @@
 package py.com.bbva.canales.demoebean.entity.query.assoc;
 
+import io.ebean.typequery.PEnum;
 import io.ebean.typequery.PLong;
 import io.ebean.typequery.PString;
-import io.ebean.typequery.PUtilDate;
 import io.ebean.typequery.TQAssocBean;
 import io.ebean.typequery.TQProperty;
 import io.ebean.typequery.TypeQueryBean;
-import py.com.bbva.canales.demoebean.entity.Message;
-import py.com.bbva.canales.demoebean.entity.query.QMessage;
+import py.com.bbva.canales.demoebean.entity.Contact;
+import py.com.bbva.canales.demoebean.entity.Contact.Type;
+import py.com.bbva.canales.demoebean.entity.query.QContact;
 
 /**
- * Association query bean for AssocMessage.
+ * Association query bean for AssocContact.
  * 
  * THIS IS A GENERATED OBJECT, DO NOT MODIFY THIS CLASS.
  */
 @TypeQueryBean
-public class QAssocMessage<R> extends TQAssocBean<Message,R> {
+public class QAssocContact<R> extends TQAssocBean<Contact,R> {
 
   public PLong<R> id;
-  public PUtilDate<R> fecha;
-  public PString<R> message;
+  public PString<R> contact;
+  public PEnum<R,Type> type;
   public QAssocCustomer<R> customer;
 
   /**
    * Eagerly fetch this association loading the specified properties.
    */
   @SafeVarargs
-  public final R fetch(TQProperty<QMessage>... properties) {
+  public final R fetch(TQProperty<QContact>... properties) {
     return fetchProperties(properties);
   }
 
-  public QAssocMessage(String name, R root) {
+  public QAssocContact(String name, R root) {
     super(name, root);
   }
 }
