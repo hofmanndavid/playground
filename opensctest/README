@@ -1,0 +1,10 @@
+apitest.hdavid.io {
+  tls hofmandavid@gmail.com
+  #tls {
+     #clients	ca/ca.crt
+  #}
+  root apitest.hdavid.io
+  #ext .html
+  log / caddy.log "{combined}"
+}
+
