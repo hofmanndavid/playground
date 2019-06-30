@@ -1,0 +1,3 @@
+entity-packages: io.hdavid.test.entity
+transactional-packages: io.hdavid
+querybean-packages: io.hdavid.test.entity
