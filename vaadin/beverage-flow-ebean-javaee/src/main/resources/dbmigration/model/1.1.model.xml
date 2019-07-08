@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<migration xmlns="http://ebean-orm.github.io/xml/ns/dbmigration">
+    <changeSet type="apply">
+        <createTable name="appuser" pkName="pk_appuser">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="name" type="varchar"/>
+            <column name="password" type="varchar"/>
+            <column name="roles" type="varchar"/>
+        </createTable>
+    </changeSet>
+    <changeSet type="pendingDrops">
+        <dropTable name="customer" sequenceCol="id"/>
+    </changeSet>
+</migration>

@@ -1,0 +1,5 @@
+entity-packages: io.hdavid.test.entity
+transactional-packages: none
+querybean-packages: io.hdavid.test
+
+
