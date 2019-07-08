@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 /**
- * Grid of products, handling the visual presentation and filtering of a set of
+ * Grid of products, handling the visual presentation and filtering of a setCurrentUser of
  * items. This version uses an in-memory data source that is suitable for small
  * data sets.
  */

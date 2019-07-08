@@ -1,4 +1,4 @@
-package io.hdavid.test.authentication;
+package io.hdavid.test.ui;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dependency.JsModule;
@@ -13,22 +13,23 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteConfiguration;
 import io.hdavid.test.AdminView;
 import io.hdavid.test.MainLayout;
+import io.hdavid.test.crosscut.AccessControl;
+import io.hdavid.test.crosscut.AuthHelper;
+import io.hdavid.test.entity.User;
 
-/**
- * UI content when the user is not logged in yet.
- */
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.inject.Inject;
+
 @Route("Login")
 @PageTitle("Login")
 @JsModule("frontend://styles/shared-styles.js")
 public class LoginScreen extends FlexLayout {
 
-    private AccessControl accessControl;
+    @EJB
+    AccessControl accessControl;
 
-    public LoginScreen() {
-        accessControl = AccessControlFactory.getInstance().createAccessControl();
-        buildUI();
-    }
-
+    @PostConstruct
     private void buildUI() {
         setSizeFull();
         setClassName("login-screen");
@@ -36,8 +37,7 @@ public class LoginScreen extends FlexLayout {
         // login form, centered in the available part of the screen
         LoginForm loginForm = new LoginForm();
         loginForm.addLoginListener(this::login);
-        loginForm.addForgotPasswordListener(
-                event -> Notification.show("Hint: same as username"));
+        loginForm.addForgotPasswordListener(e -> Notification.show("Hint: same as username"));
 
         // layout to center login form when there is sufficient screen space
         FlexLayout centeringLayout = new FlexLayout();
@@ -69,22 +69,20 @@ public class LoginScreen extends FlexLayout {
     }
 
     private void login(LoginForm.LoginEvent event) {
-        if (accessControl.signIn(event.getUsername(), event.getPassword())) {
-            registerAdminViewIfApplicable();
-            getUI().get().navigate("");
-        } else {
-            event.getSource().setError(true);
-        }
-    }
+        User user = accessControl.attemptLogin(event.getUsername(), event.getPassword());
 
-    private void registerAdminViewIfApplicable() {
-        // register the admin view dynamically only for any admin user logged in
-        if (accessControl.isUserInRole(AccessControl.ADMIN_ROLE_NAME)) {
-            RouteConfiguration.forSessionScope().setRoute(AdminView.VIEW_NAME,
-                    AdminView.class, MainLayout.class);
-            // as logout will purge the session route registry, no need to
-            // unregister the view on logout
+        if (user == null) {
+            event.getSource().setError(true);
+            return;
         }
+
+        AuthHelper.setCurrentUser(user);
+        if (user.hasRol(User.Rol.ADMIN)) {
+            RouteConfiguration.forSessionScope()
+                    .setRoute(AdminView.VIEW_NAME, AdminView.class, MainLayout.class);
+        }
+
+        getUI().get().navigate("");
     }
 
 }

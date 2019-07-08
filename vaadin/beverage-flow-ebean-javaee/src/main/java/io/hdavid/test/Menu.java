@@ -1,6 +1,7 @@
 package io.hdavid.test;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Image;
@@ -15,8 +16,8 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinServletService;
 import com.vaadin.flow.server.VaadinSession;
-import io.hdavid.test.authentication.AccessControlFactory;
-import io.hdavid.test.entity.query.QCustomer;
+import io.hdavid.test.crosscut.AuthHelper;
+
 
 public class Menu extends FlexLayout {
 
@@ -50,8 +51,7 @@ public class Menu extends FlexLayout {
         // Note! Image resource url is resolved here as it is dependent on the
         // execution mode (development or production) and browser ES level support
         String resolvedImage = VaadinServletService.getCurrent()
-                .resolveResource("img/table-logo.png",
-                        VaadinSession.getCurrent().getBrowser());
+                .resolveResource("img/table-logo.png", VaadinSession.getCurrent().getBrowser());
 
         Image image = new Image(resolvedImage, "");
         top.add(image);
@@ -65,27 +65,14 @@ public class Menu extends FlexLayout {
         add(tabs);
 
         // logout menu item
-        Button logoutButton = new Button("Logout",
-                VaadinIcon.SIGN_OUT.create());
-        logoutButton.addClickListener(event -> AccessControlFactory
-                .getInstance().createAccessControl().signOut());
+        Button logoutButton = new Button("Logout", VaadinIcon.SIGN_OUT.create());
+        logoutButton.addClickListener(e -> AuthHelper.signOut());
 
         logoutButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
         add(logoutButton);
     }
 
-    /**
-     * Add a view to the navigation menu
-     *
-     * @param viewClass
-     *         that has a {@code Route} annotation
-     * @param caption
-     *         view caption in the menu
-     * @param icon
-     *         view icon in the menu
-     */
-    public void addView(Class<? extends Component> viewClass, String caption,
-            Icon icon) {
+    public void addView(Class<? extends Component> viewClass, String caption, Icon icon) {
         Tab tab = new Tab();
         RouterLink routerLink = new RouterLink(null, viewClass);
         routerLink.setClassName("menu-link");
@@ -94,4 +81,5 @@ public class Menu extends FlexLayout {
         tab.add(routerLink);
         tabs.add(tab);
     }
+
 }

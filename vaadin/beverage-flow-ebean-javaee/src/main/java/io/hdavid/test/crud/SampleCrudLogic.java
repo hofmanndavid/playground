@@ -1,10 +1,10 @@
 package io.hdavid.test.crud;
 
 import com.vaadin.flow.component.UI;
-import io.hdavid.test.authentication.AccessControl;
-import io.hdavid.test.authentication.AccessControlFactory;
 import io.hdavid.test.backend.DataService;
 import io.hdavid.test.backend.data.Product;
+import io.hdavid.test.crosscut.AuthHelper;
+import io.hdavid.test.entity.User;
 
 import java.io.Serializable;
 
@@ -28,8 +28,7 @@ public class SampleCrudLogic implements Serializable {
     public void init() {
         editProduct(null);
         // Hide and disable if not admin
-        if (!AccessControlFactory.getInstance().createAccessControl()
-                .isUserInRole(AccessControl.ADMIN_ROLE_NAME)) {
+        if (!AuthHelper.getCurrentUser().hasRol(User.Rol.ADMIN)) {
             view.setNewProductEnabled(false);
         }
     }
@@ -108,8 +107,7 @@ public class SampleCrudLogic implements Serializable {
     }
 
     public void rowSelected(Product product) {
-        if (AccessControlFactory.getInstance().createAccessControl()
-                .isUserInRole(AccessControl.ADMIN_ROLE_NAME)) {
+        if (AuthHelper.getCurrentUser().hasRol(User.Rol.ADMIN)) {
             editProduct(product);
         }
     }

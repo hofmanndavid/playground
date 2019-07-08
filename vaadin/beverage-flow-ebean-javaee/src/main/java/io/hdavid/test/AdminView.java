@@ -2,6 +2,7 @@ package io.hdavid.test;
 
 import java.util.ArrayList;
 
+import com.vaadin.cdi.annotation.RouteScoped;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
